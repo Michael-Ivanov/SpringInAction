@@ -21,7 +21,7 @@ import miv.study.tacos.Ingredient.Type;
 @RequestMapping("/design")
 public class DesignTacoController {
 
-    private Logger logger = LoggerFactory.getLogger(DesignTacoController.class);
+    private static final Logger logger = LoggerFactory.getLogger(DesignTacoController.class);
 
     @GetMapping
     public String showDesignForm(Model model) {
@@ -50,8 +50,11 @@ public class DesignTacoController {
     @PostMapping
     public String processDesign(Taco design) {
         // Save the taco design...
+        logger.info("Processing design: " + design +
+                "\nName: " + design.getName() +
+                "\nIngredients: " + design.getIngredients());
 
-        return null;
+        return "redirect:/orders/current";
     }
 
     private List<Ingredient> filterByType(List<Ingredient> ingredients, Type type) {
