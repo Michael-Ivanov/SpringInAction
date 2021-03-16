@@ -4,7 +4,10 @@ import java.util.List;
 
 public class Taco {
     private String name;
-    private List<Ingredient> ingredients;
+    private List<String> ingredients;
+
+    public Taco() {
+    }
 
     public String getName() {
         return name;
@@ -14,11 +17,11 @@ public class Taco {
         this.name = name;
     }
 
-    public List<Ingredient> getIngredients() {
+    public List<String> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(List<Ingredient> ingredients) {
+    public void setIngredients(List<String> ingredients) {
         this.ingredients = ingredients;
     }
 }
