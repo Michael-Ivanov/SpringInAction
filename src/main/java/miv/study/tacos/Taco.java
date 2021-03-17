@@ -1,5 +1,6 @@
 package miv.study.tacos;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
@@ -10,7 +11,7 @@ public class Taco {
     @Size(min = 5, message = "Name must be at least 5 characters long")
     private String name;
 
-    @Size(min = 1, message = "You must choose at least 1 ingredient")
+    @NotEmpty(message = "You must choose at lease one ingredient")
     private List<String> ingredients;
 
     public Taco() {
@@ -30,5 +31,13 @@ public class Taco {
 
     public void setIngredients(List<String> ingredients) {
         this.ingredients = ingredients;
+    }
+
+    @Override
+    public String toString() {
+        return "Taco{" +
+                "name='" + name + '\'' +
+                ", ingredients=" + ingredients +
+                '}';
     }
 }
