@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -27,8 +28,10 @@ public class DesignTacoController {
 
     private static final Logger logger = LoggerFactory.getLogger(DesignTacoController.class);
 
-    @GetMapping
-    public String showDesignForm(Model model) {
+
+
+    @ModelAttribute
+    public void addIngredientsToModel(Model model) {
         List<Ingredient> ingredients = Arrays.asList(
                 new Ingredient("FLTO", "Flour Tortilla", Type.WRAP),
                 new Ingredient("COTO", "Corn Tortilla", Type.WRAP),
@@ -46,23 +49,25 @@ public class DesignTacoController {
         for (Type type : types) {
             model.addAttribute(type.toString().toLowerCase(), filterByType(ingredients, type));
         }
-        model.addAttribute("design", new Taco());
+    }
 
+    @GetMapping
+    public String showDesignForm(Model model) {
+
+        model.addAttribute("design", new Taco());
         return "design";
     }
 
     @PostMapping
-    public String processDesign(@Valid Taco design, Errors errors) {
+    public String processDesign(@Valid @ModelAttribute("design") Taco design, Errors errors, Model model) {
 
         if (errors.hasErrors()) {
-            return "design";
+            logger.warn("Taco object not valid: " + design);
+            return "/design";
         }
 
         // Save the taco design...
-        logger.info("Processing design: " + design +
-                "\nName: " + design.getName() +
-                "\nIngredients: " + design.getIngredients());
-
+        logger.info("Processing design: " + design);
         return "redirect:/orders/current";
     }
 
