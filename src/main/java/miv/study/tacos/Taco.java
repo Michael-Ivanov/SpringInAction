@@ -3,9 +3,14 @@ package miv.study.tacos;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Date;
 import java.util.List;
 
 public class Taco {
+
+    private Long id;
+
+    private Date createdAt;
 
     @NotNull
     @Size(min = 5, message = "Name must be at least 5 characters long")
@@ -15,6 +20,22 @@ public class Taco {
     private List<String> ingredients;
 
     public Taco() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
     public String getName() {
@@ -36,7 +57,9 @@ public class Taco {
     @Override
     public String toString() {
         return "Taco{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", createdAt=" + createdAt +
+                ", name='" + name + '\'' +
                 ", ingredients=" + ingredients +
                 '}';
     }
