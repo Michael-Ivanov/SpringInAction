@@ -17,7 +17,7 @@ public class Taco {
     private String name;
 
     @NotEmpty(message = "You must choose at lease one ingredient")
-    private List<String> ingredients;
+    private List<Ingredient> ingredients;
 
     public Taco() {
     }
@@ -46,11 +46,11 @@ public class Taco {
         this.name = name;
     }
 
-    public List<String> getIngredients() {
+    public List<Ingredient> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(List<String> ingredients) {
+    public void setIngredients(List<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
 
