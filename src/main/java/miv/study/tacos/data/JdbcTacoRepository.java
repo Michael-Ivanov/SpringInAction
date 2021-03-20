@@ -10,7 +10,6 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import java.sql.PreparedStatement;
 import java.sql.Timestamp;
 import java.sql.Types;
 import java.util.Arrays;
@@ -41,10 +40,13 @@ public class JdbcTacoRepository implements TacoRepository {
     private long saveTacoInfo(Taco taco) {
 
         taco.setCreatedAt(new Date());
-        PreparedStatementCreator statement = new PreparedStatementCreatorFactory(
+        PreparedStatementCreatorFactory factory = new PreparedStatementCreatorFactory(
                 "insert into taco (name, createdat) values (?, ?)",
-                Types.VARCHAR, Types.TIMESTAMP)
-                .newPreparedStatementCreator(
+                Types.VARCHAR, Types.TIMESTAMP);
+
+        factory.setReturnGeneratedKeys(true);
+
+        PreparedStatementCreator statement = factory.newPreparedStatementCreator(
                         Arrays.asList(
                                 taco.getName(),
                                 new Timestamp(taco.getCreatedAt().getTime())));
@@ -52,7 +54,7 @@ public class JdbcTacoRepository implements TacoRepository {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(statement, keyHolder);
 
-        return keyHolder.getKey().longValue();
+        return ((Number)keyHolder.getKeys().get("id")).longValue();
     }
 
     private void saveIngredientToTaco(Ingredient ingredient, long tacoId) {
