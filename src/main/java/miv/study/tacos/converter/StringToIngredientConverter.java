@@ -1,5 +1,6 @@
-package miv.study.tacos;
+package miv.study.tacos.converter;
 
+import miv.study.tacos.Ingredient;
 import miv.study.tacos.data.IngredientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;

@@ -1,12 +1,11 @@
 package miv.study.tacos.web;
 
-
 import miv.study.tacos.Ingredient;
 import miv.study.tacos.Ingredient.Type;
 import miv.study.tacos.Order;
 import miv.study.tacos.Taco;
-import miv.study.tacos.data.IngredientRepository;
-import miv.study.tacos.data.TacoRepository;
+import miv.study.tacos.jpadatarepository.IngredientJpaRepository;
+import miv.study.tacos.jpadatarepository.TacoJpaRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,20 +27,22 @@ public class DesignTacoController {
 
     private static final Logger logger = LoggerFactory.getLogger(DesignTacoController.class);
 
-    private final IngredientRepository ingredientRepository;
-    private final TacoRepository tacoRepository;
+    private final IngredientJpaRepository ingredientJpaRepository;
+    private final TacoJpaRepository tacoJpaRepository;
 
     @Autowired
-    public DesignTacoController(IngredientRepository ingredientRepository, TacoRepository tacoRepository) {
-        this.ingredientRepository = ingredientRepository;
-        this.tacoRepository = tacoRepository;
+    public DesignTacoController(IngredientJpaRepository ingredientJpaRepository, TacoJpaRepository tacoJpaRepository) {
+        this.ingredientJpaRepository = ingredientJpaRepository;
+        this.tacoJpaRepository = tacoJpaRepository;
     }
 
     @ModelAttribute
     public void addIngredientsToModel(Model model) {
         List<Ingredient> ingredients = new ArrayList<>();
+        Iterable<Ingredient> ingredientIterable = ingredientJpaRepository.findAll();
+        ingredientIterable.forEach(ingredients::add);
 
-        ingredientRepository.findAll().forEach(ingredients::add);
+        logger.info("add ingredients to model: " + ingredients);
 
         Type[] types = Ingredient.Type.values();
         for (Type type : types) {
@@ -72,7 +74,7 @@ public class DesignTacoController {
             return "/design";
         }
 
-        Taco savedTaco = tacoRepository.save(taco);
+        Taco savedTaco = tacoJpaRepository.save(taco);
         order.addTaco(savedTaco);
         logger.info("Processing design: " + taco);
         return "redirect:/orders/current";

@@ -1,12 +1,11 @@
 package miv.study.tacos.web;
 
 import miv.study.tacos.Order;
-import miv.study.tacos.data.OrderRepository;
+import miv.study.tacos.jpadatarepository.OrderJpaRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,11 +22,11 @@ public class OrderController {
 
     private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
 
-    private OrderRepository orderRepository;
+    private OrderJpaRepository orderJpaRepository;
 
     @Autowired
-    public OrderController(OrderRepository orderRepository) {
-        this.orderRepository = orderRepository;
+    public OrderController(OrderJpaRepository orderJpaRepository) {
+        this.orderJpaRepository = orderJpaRepository;
     }
 
     @GetMapping("/current")
@@ -42,7 +41,7 @@ public class OrderController {
         }
 
         logger.info("Processing order: " + order);
-        orderRepository.save(order);
+        orderJpaRepository.save(order);
         sessionStatus.setComplete();
         return "redirect:/";
     }

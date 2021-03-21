@@ -1,15 +1,17 @@
 package miv.study.tacos;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
+@Table(name = "ingredient")
 public class Ingredient {
 
     @Id
     private String id;
     private String name;
+
+    @Enumerated(EnumType.STRING)
     private Type type;
 
     public Ingredient(String id, String name, Type type) {
