@@ -2,9 +2,7 @@ package miv.study.tacos;
 
 import org.hibernate.validator.constraints.CreditCardNumber;
 
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,7 +22,7 @@ public class Order {
     @NotBlank(message = "City is required")
     private String city;
 
-    @NotBlank(message = "State is required")
+    @Size(min = 1, max = 2, message = "State is required. Min = 1, Max = 2 symbols")
     private String state;
 
     @NotBlank(message = "Zip code is required")

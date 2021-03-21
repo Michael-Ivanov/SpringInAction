@@ -3,6 +3,8 @@ package miv.study.tacos.data;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import miv.study.tacos.Order;
 import miv.study.tacos.Taco;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
@@ -15,6 +17,8 @@ import java.util.Map;
 
 @Repository
 public class JdbcOrderRepository implements OrderRepository {
+
+    private Logger logger = LoggerFactory.getLogger(JdbcOrderRepository.class);
 
     private SimpleJdbcInsert orderInserter;
     private SimpleJdbcInsert orderTacoInserter;
@@ -41,7 +45,6 @@ public class JdbcOrderRepository implements OrderRepository {
         order.setId(orderId);
 
         List<Taco> tacos = order.getTacos();
-
         for (Taco taco : tacos) {
             saveTacoToOrder(taco, orderId);
         }
@@ -50,9 +53,7 @@ public class JdbcOrderRepository implements OrderRepository {
 
     private long saveOrderDetails(Order order) {
         Map<String, Object> values = objectMapper.convertValue(order, Map.class);
-
         values.put("placedAt", order.getPlacedAt());
-
         long orderId = orderInserter
                 .executeAndReturnKey(values)
                 .longValue();
