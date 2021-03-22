@@ -22,7 +22,7 @@ public class Taco {
     @Size(min = 5, message = "Name must be at least 5 characters long")
     private String name;
 
-    @OneToMany
+    @ManyToMany
     @JoinTable(name = "taco_ingredients",
             joinColumns = @JoinColumn(name = "taco"),
             inverseJoinColumns = @JoinColumn(name = "ingredient"))
