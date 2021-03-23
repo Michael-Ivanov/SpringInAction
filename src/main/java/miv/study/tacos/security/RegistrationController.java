@@ -1,5 +1,6 @@
 package miv.study.tacos.security;
 
+import miv.study.tacos.User;
 import miv.study.tacos.jpadatarepository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -28,7 +29,8 @@ public class RegistrationController {
 
     @PostMapping
     public String processForm(RegistrationForm form) {
-        userRepository.save(form.toUser(passwordEncoder));
+        User user = form.toUser(passwordEncoder);
+        userRepository.save(user);
         return "redirect:/login";
     }
 }
