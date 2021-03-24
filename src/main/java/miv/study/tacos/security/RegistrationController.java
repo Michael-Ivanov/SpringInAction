@@ -31,6 +31,6 @@ public class RegistrationController {
     public String processForm(RegistrationForm form) {
         User user = form.toUser(passwordEncoder);
         userRepository.save(user);
-        return "redirect:/login";
+        return "redirect:/loginPage";
     }
 }

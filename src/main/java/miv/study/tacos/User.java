@@ -1,6 +1,5 @@
 package miv.study.tacos;
 
-import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -8,14 +7,12 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Arrays;
 import java.util.Collection;
 
 @Entity
+@Table(name = "taco_user")
 @Data
 @NoArgsConstructor(force = true)
 @RequiredArgsConstructor
@@ -25,6 +22,7 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // no need to map fields to table columns explicitly, because field name equals column name
     private final String username;
     private final String password;
     private final String fullname;
@@ -32,6 +30,9 @@ public class User implements UserDetails {
     private final String city;
     private final String state;
     private final String zip;
+
+    // need explicit column mapping because Spring is looking for 'phone_number' column by default
+    @Column(name = "phonenumber")
     private final String phoneNumber;
 
 
