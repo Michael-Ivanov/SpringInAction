@@ -42,7 +42,7 @@ public class DesignTacoController {
         Iterable<Ingredient> ingredientIterable = ingredientJpaRepository.findAll();
         ingredientIterable.forEach(ingredients::add);
 
-        logger.info("add ingredients to model: " + ingredients);
+        logger.info("Init: add ingredients to model: " + ingredients);
 
         Type[] types = Ingredient.Type.values();
         for (Type type : types) {
@@ -61,7 +61,7 @@ public class DesignTacoController {
     }
 
     @GetMapping
-    public String showDesignForm(Model model) {
+    public String showDesignForm() {
 
         return "design";
     }
