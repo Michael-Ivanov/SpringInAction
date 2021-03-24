@@ -1,16 +1,19 @@
 package miv.study.tacos;
 
+import lombok.Data;
 import org.hibernate.validator.constraints.CreditCardNumber;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@Data
 @Entity
 @Table(name = "taco_order")
-public class Order {
+public class Order implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -59,119 +62,15 @@ public class Order {
             inverseJoinColumns = @JoinColumn(name = "taco"))
     private List<Taco> tacos = new ArrayList<>();
 
-    public Order() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @ManyToOne
+    private User user;
 
     @PrePersist
     private void placedAt() {
         this.placedAt = new Date();
     }
 
-    public Date getPlacedAt() {
-        return placedAt;
-    }
-
-    public void setPlacedAt(Date placedAt) {
-        this.placedAt = placedAt;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getStreet() {
-        return street;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public String getZip() {
-        return zip;
-    }
-
-    public void setZip(String zip) {
-        this.zip = zip;
-    }
-
-    public String getCcNumber() {
-        return ccNumber;
-    }
-
-    public void setCcNumber(String ccNumber) {
-        this.ccNumber = ccNumber;
-    }
-
-    public String getCcExpiration() {
-        return ccExpiration;
-    }
-
-    public void setCcExpiration(String ccExpiration) {
-        this.ccExpiration = ccExpiration;
-    }
-
-    public String getCcCVV() {
-        return ccCVV;
-    }
-
-    public void setCcCVV(String ccCVV) {
-        this.ccCVV = ccCVV;
-    }
-
-    public List<Taco> getTacos() {
-        return tacos;
-    }
-
-    public void setTacos(List<Taco> tacos) {
-        this.tacos = tacos;
-    }
-
     public void addTaco(Taco taco) {
         tacos.add(taco);
-    }
-
-    @Override
-    public String toString() {
-        return "Order{" +
-                "id=" + id +
-                ", placedAt=" + placedAt +
-                ", name='" + name + '\'' +
-                ", street='" + street + '\'' +
-                ", city='" + city + '\'' +
-                ", state='" + state + '\'' +
-                ", zip='" + zip + '\'' +
-                ", ccNumber='" + ccNumber + '\'' +
-                ", ccExpiration='" + ccExpiration + '\'' +
-                ", ccCVV='" + ccCVV + '\'' +
-                '}';
     }
 }
