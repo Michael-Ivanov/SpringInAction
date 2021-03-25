@@ -2,7 +2,6 @@ package miv.study.tacos;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,8 +13,7 @@ import java.util.Collection;
 @Entity
 @Table(name = "taco_user")
 @Data
-@NoArgsConstructor(force = true)
-@RequiredArgsConstructor
+@NoArgsConstructor
 public class User implements UserDetails {
 
     @Id
@@ -23,18 +21,20 @@ public class User implements UserDetails {
     private Long id;
 
     // no need to map fields to table columns explicitly, because field name equals column name
-    private final String username;
-    private final String password;
-    private final String fullname;
-    private final String street;
-    private final String city;
-    private final String state;
-    private final String zip;
+    private String username;
+    private String password;
+    @Transient
+    private String confirm;
+
+    private String fullname;
+    private String street;
+    private String city;
+    private String state;
+    private String zip;
 
     // need explicit column mapping because Spring is looking for 'phone_number' column by default
     @Column(name = "phonenumber")
-    private final String phoneNumber;
-
+    private String phoneNumber;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
