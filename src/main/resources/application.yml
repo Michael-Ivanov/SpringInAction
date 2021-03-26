@@ -1,0 +1,9 @@
+server:
+  port: 8888
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost/taco_cloud
+    username: hbstudent
+    password: hbstudent
+
