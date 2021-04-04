@@ -6,4 +6,7 @@ spring:
     url: jdbc:postgresql://localhost/taco_cloud
     username: hbstudent
     password: hbstudent
+  data:
+    rest:
+      base-path: /api
 
