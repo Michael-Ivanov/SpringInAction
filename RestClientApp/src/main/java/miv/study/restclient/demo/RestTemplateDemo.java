@@ -2,9 +2,11 @@ package miv.study.restclient.demo;
 
 import miv.study.tacos.Ingredient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,5 +31,10 @@ public class RestTemplateDemo {
 
         return restTemplate.getForObject("http://localhost:8888/api/ingredients/{id}",
                 Ingredient.class, vars);
+    }
+
+    public ResponseEntity<Ingredient> getIngredientResponseEntity(String ingredientId) {
+        return restTemplate.getForEntity("http://localhost:8888/api/ingredients/{id}",
+                Ingredient.class, ingredientId);
     }
 }

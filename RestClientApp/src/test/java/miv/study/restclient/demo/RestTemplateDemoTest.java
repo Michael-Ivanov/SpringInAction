@@ -4,6 +4,7 @@ import miv.study.tacos.Ingredient;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.ResponseEntity;
 
 @SpringBootTest
 class RestTemplateDemoTest {
@@ -21,6 +22,15 @@ class RestTemplateDemoTest {
     public void shouldPrintIngredientFromMap() {
         Ingredient ingredient = restTemplateDemo.getIngredientByMapById("LETC");
         System.out.println("Test getIngredientByMapById: " + ingredient);
+    }
+
+    @Test
+    public void shouldGetIngredientFromEntityAndPrint() {
+        ResponseEntity<Ingredient> responseEntity =
+                restTemplateDemo.getIngredientResponseEntity("SLSA");
+
+        Ingredient ingredient = responseEntity.getBody();
+        System.out.println("Test ingredient form ResponseEntity: " + ingredient);
     }
 
 }
