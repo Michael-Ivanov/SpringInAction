@@ -37,4 +37,9 @@ public class RestTemplateDemo {
         return restTemplate.getForEntity("http://localhost:8888/api/ingredients/{id}",
                 Ingredient.class, ingredientId);
     }
+
+    public void updateIngredient(Ingredient ingredient) {
+        restTemplate.put("http://localhost:8888/api/ingredients/{id}",
+                ingredient, ingredient.getId());
+    }
 }

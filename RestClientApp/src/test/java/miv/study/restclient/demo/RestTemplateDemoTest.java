@@ -33,4 +33,10 @@ class RestTemplateDemoTest {
         System.out.println("Test ingredient form ResponseEntity: " + ingredient);
     }
 
+    @Test
+    public void shouldUpdateIngredient() {
+        Ingredient ingredient = new Ingredient("CHED", "Cheddar super cheese", Ingredient.Type.CHEESE);
+        restTemplateDemo.updateIngredient(ingredient);
+    }
+
 }
