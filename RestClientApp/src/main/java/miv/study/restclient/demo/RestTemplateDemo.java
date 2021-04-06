@@ -42,4 +42,9 @@ public class RestTemplateDemo {
         restTemplate.put("http://localhost:8888/api/ingredients/{id}",
                 ingredient, ingredient.getId());
     }
+
+    public void createIngredient(Ingredient newIngredient) {
+        restTemplate.postForObject("http://localhost:8888/api/ingredients",
+                newIngredient, Ingredient.class);
+    }
 }

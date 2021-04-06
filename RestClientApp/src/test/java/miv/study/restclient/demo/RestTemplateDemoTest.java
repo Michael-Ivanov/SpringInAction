@@ -39,4 +39,10 @@ class RestTemplateDemoTest {
         restTemplateDemo.updateIngredient(ingredient);
     }
 
+    @Test
+    public void shouldCreateNewIngredient() {
+        Ingredient ingredient = new Ingredient("MOZZ", "Mozzarella cheese", Ingredient.Type.CHEESE);
+        restTemplateDemo.createIngredient(ingredient);
+    }
+
 }
