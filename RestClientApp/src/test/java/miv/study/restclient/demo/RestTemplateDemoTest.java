@@ -45,4 +45,11 @@ class RestTemplateDemoTest {
         restTemplateDemo.createIngredient(ingredient);
     }
 
+    @Test
+    public void shouldDeleteIngredientById() {
+        String id = "MOZZ";
+        restTemplateDemo.deleteIngredientById(id);
+        System.out.println("Ingredient with id " + id + " deleted");
+    }
+
 }

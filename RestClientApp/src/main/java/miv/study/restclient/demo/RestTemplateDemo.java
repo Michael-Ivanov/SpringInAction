@@ -47,4 +47,8 @@ public class RestTemplateDemo {
         restTemplate.postForObject("http://localhost:8888/api/ingredients",
                 newIngredient, Ingredient.class);
     }
+
+    public void deleteIngredientById(String ingredientId) {
+        restTemplate.delete("http://localhost:8888/api/ingredients/{id}", ingredientId);
+    }
 }
