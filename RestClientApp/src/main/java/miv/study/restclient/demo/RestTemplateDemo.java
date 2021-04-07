@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import javax.persistence.criteria.CriteriaBuilder;
+import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,6 +47,10 @@ public class RestTemplateDemo {
     public void createIngredient(Ingredient newIngredient) {
         restTemplate.postForObject("http://localhost:8888/api/ingredients",
                 newIngredient, Ingredient.class);
+    }
+
+    public URI createIngredientReturnLocation(Ingredient ingredient) {
+        return restTemplate.postForLocation("http://localhost:8888/api/ingredients", ingredient);
     }
 
     public void deleteIngredientById(String ingredientId) {

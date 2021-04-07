@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
 
+import java.net.URI;
+
 @SpringBootTest
 class RestTemplateDemoTest {
 
@@ -43,6 +45,13 @@ class RestTemplateDemoTest {
     public void shouldCreateNewIngredient() {
         Ingredient ingredient = new Ingredient("MOZZ", "Mozzarella cheese", Ingredient.Type.CHEESE);
         restTemplateDemo.createIngredient(ingredient);
+    }
+
+    @Test
+    public void shouldCreateNewIngredientAndReturnLocation() {
+        Ingredient ingredient = new Ingredient("PES", "Pesto sauce", Ingredient.Type.SAUCE);
+        URI uri = restTemplateDemo.createIngredientReturnLocation(ingredient);
+        System.out.println("New ingredient created. Location: " + uri);
     }
 
     @Test
