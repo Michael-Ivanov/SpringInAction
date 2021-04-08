@@ -21,6 +21,6 @@ public class JmsOrderMessagingService implements OrderMessagingService {
 
     @Override
     public void sendOrder(Order order) {
-        jms.send(orderQueue, session -> session.createObjectMessage(order));
+        jms.convertAndSend(orderQueue, order);
     }
 }
