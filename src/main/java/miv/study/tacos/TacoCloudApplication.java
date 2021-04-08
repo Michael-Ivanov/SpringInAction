@@ -1,9 +1,13 @@
 package miv.study.tacos;
 
+import org.apache.activemq.artemis.jms.client.ActiveMQQueue;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import javax.jms.Destination;
 
 @SpringBootApplication
 public class TacoCloudApplication implements WebMvcConfigurer {
@@ -16,5 +20,10 @@ public class TacoCloudApplication implements WebMvcConfigurer {
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("home");
         registry.addViewController("/loginPage");
+    }
+
+    @Bean
+    public Destination orderQueue() {
+        return new ActiveMQQueue("tacocloud.order.queue");
     }
 }
