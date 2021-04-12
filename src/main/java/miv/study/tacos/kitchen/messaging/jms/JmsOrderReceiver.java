@@ -1,6 +1,7 @@
 package miv.study.tacos.kitchen.messaging.jms;
 
 import miv.study.tacos.Order;
+import miv.study.tacos.kitchen.messaging.OrderReceiver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;

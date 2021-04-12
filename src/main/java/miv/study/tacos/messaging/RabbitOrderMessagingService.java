@@ -23,6 +23,6 @@ public class RabbitOrderMessagingService implements OrderMessagingService{
         MessageConverter converter = rabbitTemplate.getMessageConverter();
         MessageProperties props = new MessageProperties();
         Message message = converter.toMessage(order, props);
-        rabbitTemplate.send("tacocloud.order", message);
+        rabbitTemplate.send("myQueue", message);
     }
 }

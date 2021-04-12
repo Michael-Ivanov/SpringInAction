@@ -1,4 +1,4 @@
-package miv.study.tacos.kitchen.messaging.jms;
+package miv.study.tacos.kitchen.messaging;
 
 import miv.study.tacos.Order;
 
