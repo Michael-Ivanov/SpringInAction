@@ -5,6 +5,7 @@ import miv.study.tacos.jpadatarepository.OrderJpaRepository;
 import miv.study.tacos.kitchen.messaging.jms.OrderReceiver;
 import miv.study.tacos.messaging.OrderMessagingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +21,7 @@ public class OrderTacoRestController {
 
     @Autowired
     public OrderTacoRestController(OrderJpaRepository orderRepository,
-                                   OrderMessagingService orderMessagingService,
+                                   @Qualifier("rabbitOrderMessagingService") OrderMessagingService orderMessagingService,
                                    OrderReceiver orderReceiver) {
         this.orderRepository = orderRepository;
         this.orderMessagingService = orderMessagingService;
