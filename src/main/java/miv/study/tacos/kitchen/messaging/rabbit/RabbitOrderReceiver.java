@@ -21,9 +21,6 @@ public class RabbitOrderReceiver implements OrderReceiver {
     @Override
     public Order receiveOrder() {
 
-        Message message = rabbitTemplate.receive("myQueue");
-        MessageConverter converter = rabbitTemplate.getMessageConverter();
-
-        return (Order) converter.fromMessage(message);
+        return (Order) rabbitTemplate.receiveAndConvert("hello world queue");
     }
 }
