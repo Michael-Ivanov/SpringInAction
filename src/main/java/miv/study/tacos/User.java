@@ -40,6 +40,7 @@ public class User implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
     }
+    // todo: add custom deserializer https://stackoverflow.com/questions/36168010/spring-securitycan-not-construct-instance-of-org-springframework-security-core
 
     @Override
     public boolean isAccountNonExpired() {

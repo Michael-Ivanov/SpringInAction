@@ -1,10 +1,7 @@
 package miv.study.tacos.messaging;
 
 import miv.study.tacos.Order;
-import org.springframework.amqp.core.Message;
-import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,9 +17,6 @@ public class RabbitOrderMessagingService implements OrderMessagingService{
 
     @Override
     public void sendOrder(Order order) {
-        MessageConverter converter = rabbitTemplate.getMessageConverter();
-        MessageProperties props = new MessageProperties();
-        Message message = converter.toMessage(order, props);
-        rabbitTemplate.send("myQueue", message);
+        rabbitTemplate.convertAndSend("hello world queue", order);
     }
 }
